@@ -20,19 +20,37 @@ module.exports = {
         var refreshCaptchaButton = new Node('<button>').prop({
             content: '刷新'
         });
-        var captImage = new Node('<img>').prop({});
+        var captImage = new Node('<img>').prop({
+            src: 'signUp/captchaImage'
+        });
         var captInput = new Node('<input>').prop({
             id: 'captInput'
         });
         $('article').append(new Node('<div>').append('验 证 码： ').append(captInput).append(' ').append(captImage).append(refreshCaptchaButton));
-        var initCaptcha = function () {
-            IO.post('signUp/captcha?_content=json', {}, function (data) {
-                captImage.prop('src', 'signUp/captchaImage?text=' + data + '&t=' + (new Date()).valueOf());
+        refreshCaptchaButton.on('click', function (e) {
+            captImage.prop('src', 'signUp/captchaImage?t=' + (new Date()).valueOf());
+        });
+        var verifyButton = new Node('<button>').prop({});
+        $('article').append(new Node('<div>').append('验    证： ').append(verifyButton));
+        verifyButton.on('click', function (e) {
+            IO.post('signUp/verify?_content=json', {
+                captchaValue: captInput.val()
+            }, function (data) {
+                console.log(data);
             }, 'json');
-        }
-        initCaptcha();
-        refreshCaptchaButton.on("click", function (e) {
-            initCaptcha();
+        });
+        var signUpButton = new Node('<button>').prop({});
+        $('article').append(new Node('<div>').append('提    交： ').append(signUpButton));
+        signUpButton.on('click', function (e) {
+            var name = emailInput.val().substring(0, 1);
+            IO.post('signUp/submit?_content=json', {
+                captchaValue: captInput.val(),
+                email: emailInput.val(),
+                name: name,
+                password: password.val()
+            }, function (data) {
+                console.log(data);
+            }, 'json');
         });
     }
 }

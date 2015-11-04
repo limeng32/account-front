@@ -10,11 +10,11 @@ module.exports = {
         });
         $('article').append(new Node('<div>').append('邮件地址： ').append(emailInput));
         var password = new Node('<input>').prop({
-            id: 'password'
+            type: 'password'
         });
         $('article').append(new Node('<div>').append('输入密码： ').append(password));
         var confirmPassword = new Node('<input>').prop({
-            id: 'confirmPassword'
+            type: 'password'
         });
         $('article').append(new Node('<div>').append('确认密码： ').append(confirmPassword));
         var refreshCaptchaButton = new Node('<button>').prop({
@@ -33,16 +33,17 @@ module.exports = {
         var verifyButton = new Node('<button>').prop({});
         $('article').append(new Node('<div>').append('验    证： ').append(verifyButton));
         verifyButton.on('click', function (e) {
-            IO.post('signUp/verify?_content=json', {
-                captchaValue: captInput.val()
-            }, function (data) {
-                console.log(data);
-            }, 'json');
+            var name = emailInput.val().substring(0, emailInput.val().indexOf('@'));
+            console.log(name);
         });
         var signUpButton = new Node('<button>').prop({});
         $('article').append(new Node('<div>').append('提    交： ').append(signUpButton));
         signUpButton.on('click', function (e) {
-            var name = emailInput.val().substring(0, 1);
+            if (password.val() != confirmPassword.val()) {
+                alert('您两次输入的密码不一致');
+                return;
+            }
+            var name = emailInput.val().substring(0, emailInput.val().indexOf('@'));
             IO.post('signUp/submit?_content=json', {
                 captchaValue: captInput.val(),
                 email: emailInput.val(),

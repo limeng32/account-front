@@ -1,18 +1,39 @@
 var $ = require('node').all;
-var tpl = require('./article-view');
-var XTemplate = require("kg/xtemplate/3.3.3/runtime");
+var tpl = require('./signUp-view');
+var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var IO = require('io');
+var Auth = require('kg/auth/2.0.6/');
+var AuthMsgs = require('kg/auth/2.0.6/plugin/msgs/');
 module.exports = {
     init: function () {
+        var signUpForm = new Node('<form>').addClass('form-horizontal');
+        var emailDiv = new Node('<div>').addClass('control-group');
         var emailInput = new Node('<input>').prop({
-            id: 'email'
-        });
-        $('article').append(new Node('<div>').append('邮件地址： ').append(emailInput));
+            type: 'text',
+            placeholder: '您的邮件地址',
+            required: 'required'
+        }).addClass('input-xlarge');
+        var emailLabel = new Node('<label>').addClass('control-label').attr('for', emailInput).html('邮件地址：');
+        var passwordDiv = new Node('<div>').addClass('control-group');
         var password = new Node('<input>').prop({
-            type: 'password'
+            type: 'password',
+            placeholder: '请设置密码',
+            required: 'required'
         });
-        $('article').append(new Node('<div>').append('输入密码： ').append(password));
+        var passwordLabel = new Node('<label>').addClass('control-label').attr('for', password).html('密码：');
+        var confirmPasswordDiv = new Node('<div>').addClass('control-group');
+        var confirmPassword = new Node('<input>').prop({
+            type: 'password',
+            placeholder: '请再次输入密码',
+            required: 'required'
+        });
+        var confirmPasswordLabel = new Node('<label>').addClass('control-label').attr('for', confirmPassword).html('请再次输入密码：');
+        signUpForm.append(emailDiv.append(emailLabel).append(emailInput)).append(passwordDiv.append(passwordLabel).append(password)).append(confirmPasswordDiv.append(confirmPasswordLabel).append(confirmPassword));
+        $('article').append(signUpForm);
+        var auth = new Auth(signUpForm);
+        auth.plug(new AuthMsgs());
+        auth.render();
         var confirmPassword = new Node('<input>').prop({
             type: 'password'
         });

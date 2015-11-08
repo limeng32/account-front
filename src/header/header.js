@@ -1,7 +1,6 @@
 var $ = require('node').all;
 module.exports = {
     init:function(){
-        S.log('header init');
-        $('header').html('this is header');
+        $('header').html('请您先进行注册');
     }
 }

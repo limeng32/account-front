@@ -1,5 +1,12 @@
-signUp {
-  background-color: #009900;
-  color: #fff;
-  padding: 20px;
+article {
+  margin: 10px;
+}
+.captchaImage {
+  width: 150px;
+  height: 30px;
+}
+.refreshCaptchaButton {
+  margin: 5px;
+  margin-bottom: 25px;
+  width: 50px;
 }

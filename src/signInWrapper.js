@@ -3,5 +3,5 @@ var header = require('./header/signInHeader');
 header.init();
 
 //初始化article模块
-var article = require('./signIn/signIn');
+var article = require('./article/signIn');
 article.init();

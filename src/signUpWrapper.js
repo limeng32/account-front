@@ -1,7 +1,7 @@
 //初始化header模块
-var header = require('./header/header');
+var header = require('./header/signUpHeader');
 header.init();
 
 //初始化article模块
-var signUp = require('./signUp/signUp');
-signUp.init();
+var article = require('./article/signUp');
+article.init();

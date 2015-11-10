@@ -1,0 +1,21 @@
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: larger;
+}
+header {
+  background-color: #2b81af;
+  color: #fff;
+  height: 20px;
+  padding: 20px;
+}
+article {
+  margin: 30px 10px 10px 10px;
+}
+.captchaImage {
+  width: 150px;
+  height: 30px;
+}
+.refreshCaptchaButton {
+  margin: 5px 5px 25px 5px;
+  width: 50px;
+}

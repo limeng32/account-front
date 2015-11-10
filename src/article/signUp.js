@@ -1,5 +1,5 @@
 var $ = require('node').all;
-var tpl = require('./signIn-view');
+var tpl = require('./article-view');
 var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var IO = require('io');
@@ -8,7 +8,7 @@ var AuthMsgs = require('kg/auth/2.0.6/plugin/msgs/');
 module.exports = {
     init: function () {
         var signUpForm = new Node('<form>').prop({
-            action: 'signIn/submitNew?',
+            action: 'signUp/submitNew?',
             method: 'post'
         }).addClass('form-horizontal');
         var emailDiv = new Node('<div>').addClass('control-group');
@@ -16,21 +16,27 @@ module.exports = {
             type: 'text',
             placeholder: '您的邮件地址',
             name: 'email'
-        }).attr('iRequired', '邮件地址').attr('email', 'email').attr('max-len', '100').attr('email-exist', '');
+        }).attr('iRequired', '邮件地址').attr('email', 'email').attr('max-len', '100').attr('email-unique', '');
         var emailLabel = new Node('<label>').addClass('control-label').attr('for', emailInput).html('邮件地址：');
         var passwordDiv = new Node('<div>').addClass('control-group');
         var password = new Node('<input>').prop({
             type: 'password',
             placeholder: '请设置密码',
             name: 'password'
-        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10');
+        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码中含有禁止字符');
         var passwordLabel = new Node('<label>').addClass('control-label').attr('for', password).html('密码：');
+        var confirmPasswordDiv = new Node('<div>').addClass('control-group');
+        var confirmPassword = new Node('<input>').prop({
+            type: 'password',
+            placeholder: '请再次输入密码'
+        }).attr('iRequired', '密码确认').attr('equal-field', 'password').attr('equal-field-msg','两次密码输入需一致');
+        var confirmPasswordLabel = new Node('<label>').addClass('control-label').attr('for', confirmPassword).html('请再次输入密码：');
         var captDiv = new Node('<div>').addClass('control-group');
         var captVale = new Node('<input>').prop({
             type: 'text',
             name: 'captchaValue',
             placeholder: '请输入下方的验证码'
-        });
+        }).attr('iRequired', '验证码').attr('max-len', '20').attr('capt-check', '');
         var captLabel = new Node('<label>').addClass('control-label').attr('for', captVale).html('输入验证码：');
         var captImageDiv = new Node('<div>').addClass('control-group');
         var captImage = new Node('<img>').prop({
@@ -46,12 +52,9 @@ module.exports = {
             type: 'submit',
             value: '提交'
         }).addClass('ks-button ks-button-primary ks-button-shown');
-        var hiddenCheck = new Node('<input>').prop({
-            type: 'input',
-            hidden: 'hidden'
-        }).attr('signIn-test', '');
-        signUpForm.append(emailDiv.append(emailLabel).append(emailInput)).append(passwordDiv.append(passwordLabel).append(password));
-        signUpForm.append(submitDiv.append(signUpButton)).append(hiddenCheck);
+        signUpForm.append(emailDiv.append(emailLabel).append(emailInput)).append(passwordDiv.append(passwordLabel).append(password)).append(confirmPasswordDiv.append(confirmPasswordLabel).append(confirmPassword));
+        signUpForm.append(captDiv.append(captLabel).append(captVale)).append(captImageDiv.append(captImageLabel).append(captImage).append(refreshCaptchaButton));
+        signUpForm.append(submitDiv.append(signUpButton));
         $('article').append(signUpForm);
         var auth = new Auth(signUpForm);
         auth.plug(new AuthMsgs());
@@ -67,26 +70,15 @@ module.exports = {
             var name = attr;
             this.msg('error', name + '不可以为空');
             return value != '';
-        }).register('signIn-test', function (value, attr, defer, field) {
+        }).register('email-unique', function (value, attr, defer, field) {
             var self = this;
-            IO.post('signIn/signInTest?_content=json&email=' + emailInput.val() + '&password=' + password.val(), 'json').then(function (data) {
+            IO.post('signUp/checkUnique?_content=json&email=' + value, 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
-                    self.msg('error', '您输入的邮箱和密码不匹配');
                     defer.reject(self);
                 }
-            });
-            return defer.promise;
-        }).register('email-exist', function (value, attr, defer, field) {
-            var self = this;
-            IO.post('signIn/checkExist?_content=json&email=' + value, 'json').then(function (data) {
-                if (data[0]) {
-                    defer.resolve(self);
-                } else {
-                    self.msg('error', '您输入的邮箱并不存在');
-                    defer.reject(self);
-                }
+                self.msg('error', '这个邮箱已经被注册过');
             });
             return defer.promise;
         }).register('capt-check', function (value, attr, defer, field) {

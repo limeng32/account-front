@@ -1,12 +1,12 @@
-body {
-  font-family: 'Microsoft YaHei';
-  font-size: larger;
-}
 header {
-  background-color: #2b81af;
+  background-color: #149BAD;
   color: #fff;
   height: 20px;
   padding: 20px;
+}
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: larger;
 }
 article {
   margin: 30px 10px 10px 10px;

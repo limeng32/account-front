@@ -8,14 +8,18 @@ header {
   height: 20px;
   padding: 20px;
 }
-article {
-  margin: 30px 10px 10px 10px;
+.headerMain {
+  float: left;
+  margin: 0px 0px 0px 150px;
 }
-.captchaImage {
-  width: 150px;
-  height: 30px;
+.headerTail {
+  float: right;
+  margin: 0px 150px 0px 0px;
 }
-.refreshCaptchaButton {
-  margin: 5px 5px 25px 5px;
-  width: 50px;
+.signButton {
+  margin: 0px 3px 0px 3px;
+}
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: larger;
 }

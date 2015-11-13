@@ -4,6 +4,17 @@ header {
   height: 20px;
   padding: 20px;
 }
+.headerMain {
+  float: left;
+  margin: 0px 0px 0px 150px;
+}
+.headerTail {
+  float: right;
+  margin: 0px 150px 0px 0px;
+}
+.signButton {
+  margin: 0px 3px 0px 3px;
+}
 body {
   font-family: 'Microsoft YaHei';
   font-size: larger;

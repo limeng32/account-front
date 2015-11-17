@@ -3,6 +3,7 @@ var tpl = require('./article-view');
 var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var Slide = require('kg/slide/2.0.2/');
+var Cutter = require('kg/cutter/2.0.0/');
 module.exports = {
     init: function () {
         var mainDiv = new Node('<div>').prop({id: 'example'});
@@ -12,15 +13,30 @@ module.exports = {
         var containerDiv = new Node('<div>').addClass('slides_container tab-content');
         slidesDiv.append(containerDiv);
         var imageDiv1 = new Node('<div>').addClass('tab-pannel');
-        imageDiv1.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-1.jpg'}));
+        var cutterDiv1 = new Node('<div>').addClass('cutter-mojo');
+        var contentDiv1 = new Node('<div>').addClass('cutter-content').append(new Node('<p>').html('自举')).append(new Node('<span>').html('一个关于本网站如何诞生的故事'));
+        cutterDiv1.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-1.jpg'})).append(contentDiv1);
+        imageDiv1.append(cutterDiv1);
         var imageDiv2 = new Node('<div>').addClass('tab-pannel');
-        imageDiv2.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-2.jpg'}));
+        var cutterDiv2 = new Node('<div>').addClass('cutter-mojo');
+        var contentDiv2 = new Node('<div>').addClass('cutter-content').append(new Node('<p>').html('项目二')).append(new Node('<span>').html('待补充……'));
+        cutterDiv2.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-2.jpg'})).append(contentDiv2);
+        imageDiv2.append(cutterDiv2);
         var imageDiv3 = new Node('<div>').addClass('tab-pannel');
-        imageDiv3.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-3.jpg'}));
+        var cutterDiv3 = new Node('<div>').addClass('cutter-mojo');
+        var contentDiv3 = new Node('<div>').addClass('cutter-content').append(new Node('<p>').html('项目三')).append(new Node('<span>').html('待补充……'));
+        cutterDiv3.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-3.jpg'})).append(contentDiv3);
+        imageDiv3.append(cutterDiv3);
         var imageDiv4 = new Node('<div>').addClass('tab-pannel');
-        imageDiv4.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-4.jpg'}));
+        var cutterDiv4 = new Node('<div>').addClass('cutter-mojo');
+        var contentDiv4 = new Node('<div>').addClass('cutter-content').append(new Node('<p>').html('项目四')).append(new Node('<span>').html('待补充……'));
+        cutterDiv4.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-4.jpg'})).append(contentDiv4);
+        imageDiv4.append(cutterDiv4);
         var imageDiv5 = new Node('<div>').addClass('tab-pannel');
-        imageDiv5.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-5.jpg'}));
+        var cutterDiv5 = new Node('<div>').addClass('cutter-mojo');
+        var contentDiv5 = new Node('<div>').addClass('cutter-content').append(new Node('<p>').html('项目五')).append(new Node('<span>').html('待补充……'));
+        cutterDiv5.append(new Node('<img>').prop({src: 'http://jayli.github.io/gallery/yuislide/assets/slide-5.jpg'})).append(contentDiv5);
+        imageDiv5.append(cutterDiv5);
         containerDiv.append(imageDiv1).append(imageDiv2).append(imageDiv3).append(imageDiv4).append(imageDiv5);
         var preA = new Node('<a>').prop({
             href: 'javascript:void(0);'
@@ -68,8 +84,32 @@ module.exports = {
             e.halt();
             C.next();
         })
-        KISSY.all('#slides .tab-pannel').on('click', function () {
-            alert(22);
+        var cutterDivs = KISSY.all('#slides .cutter-mojo');
+        var cutterContents = KISSY.all('#slides .cutter-content');
+        cutterContents.on('mouseover', function (e) {
+            C.stop();
+        }).on('mouseout', function (e) {
+            C.play();
+        });
+        new Cutter(cutterDivs[1], {
+            animout_easing: 'easeOut',
+            in_speed: 0.3
+        });
+        new Cutter(cutterDivs[2], {
+            animout_easing: 'easeOut',
+            in_speed: 0.3
+        });
+        new Cutter(cutterDivs[3], {
+            animout_easing: 'easeOut',
+            in_speed: 0.3
+        });
+        new Cutter(cutterDivs[4], {
+            animout_easing: 'easeOut',
+            in_speed: 0.3
+        });
+        new Cutter(cutterDivs[5], {
+            animout_easing: 'easeOut',
+            in_speed: 0.3
         });
     }
 }

@@ -1,5 +1,6 @@
 var $ = require('node').all;
 var Node = require('node');
+var IO = require('io');
 module.exports = {
     init: function () {
         var headerMain = new Node('<div>').addClass('headerMain');
@@ -24,6 +25,19 @@ module.exports = {
             });
         } else {
             headerMain.html('您已经登录成功');
+            var signOutButton = new Node('<input>').prop({
+                type: 'submit',
+                value: '退出'
+            }).addClass('ks-button ks-button-warning ks-button-shown signButton');
+            headerTail.append(signOutButton);
+            signOutButton.on('click', function (e) {
+                IO.post('signOut?_content=json', {}, function (data) {
+                    console.log(data);
+                    if (data) {
+                        window.location.href = './';
+                    }
+                }, 'json');
+            });
         }
     }
 }

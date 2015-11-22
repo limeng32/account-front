@@ -5,10 +5,11 @@ var Node = require('node');
 var IO = require('io');
 var Auth = require('kg/auth/2.0.6/');
 var AuthMsgs = require('kg/auth/2.0.6/plugin/msgs/');
+var SP = require('../smartPath/smartPath');
 module.exports = {
     init: function () {
         var signUpForm = new Node('<form>').prop({
-            action: 'signUp/submitNew?',
+            action: SP.resolvedPath('signUp/submitNew?'),
             method: 'post'
         }).addClass('form-horizontal');
         var emailDiv = new Node('<div>').addClass('control-group');
@@ -23,13 +24,13 @@ module.exports = {
             type: 'password',
             placeholder: '请设置密码',
             name: 'password'
-        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码中含有禁止字符');
+        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码中不能含有字符&');
         var passwordLabel = new Node('<label>').addClass('control-label').attr('for', password).html('密码：');
         var confirmPasswordDiv = new Node('<div>').addClass('control-group');
         var confirmPassword = new Node('<input>').prop({
             type: 'password',
             placeholder: '请再次输入密码'
-        }).attr('iRequired', '密码确认').attr('equal-field', 'password').attr('equal-field-msg','两次密码输入需一致');
+        }).attr('iRequired', '密码确认').attr('equal-field', 'password').attr('equal-field-msg', '两次密码输入需一致');
         var confirmPasswordLabel = new Node('<label>').addClass('control-label').attr('for', confirmPassword).html('请再次输入密码：');
         var captDiv = new Node('<div>').addClass('control-group');
         var captVale = new Node('<input>').prop({
@@ -40,7 +41,7 @@ module.exports = {
         var captLabel = new Node('<label>').addClass('control-label').attr('for', captVale).html('输入验证码：');
         var captImageDiv = new Node('<div>').addClass('control-group');
         var captImage = new Node('<img>').prop({
-            src: 'signUp/captchaImage'
+            src: SP.resolvedPath('signUp/captchaImage')
         }).addClass('captchaImage');
         var captImageLabel = new Node('<label>').addClass('control-label').attr('for', captImage).html('验证码：');
         var refreshCaptchaButton = new Node('<input>').prop({
@@ -72,7 +73,7 @@ module.exports = {
             return value != '';
         }).register('email-unique', function (value, attr, defer, field) {
             var self = this;
-            IO.post('signUp/checkUnique?_content=json&email=' + value, 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signUp/checkUnique?_content=json&email=' + value), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -83,7 +84,7 @@ module.exports = {
             return defer.promise;
         }).register('capt-check', function (value, attr, defer, field) {
             var self = this;
-            IO.post('signUp/captCheck?_content=json&captValue=' + value, 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signUp/captCheck?_content=json&captValue=' + value), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -95,7 +96,7 @@ module.exports = {
         });
         auth.render();
         refreshCaptchaButton.on('click', function (e) {
-            captImage.prop('src', 'signUp/captchaImage?t=' + (new Date()).valueOf());
+            captImage.prop('src', SP.resolvedPath('signUp/captchaImage?t=' + (new Date()).valueOf()));
         });
     }
 }

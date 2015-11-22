@@ -5,10 +5,11 @@ var Node = require('node');
 var IO = require('io');
 var Auth = require('kg/auth/2.0.6/');
 var AuthMsgs = require('kg/auth/2.0.6/plugin/msgs/');
+var SP = require('../smartPath/smartPath');
 module.exports = {
     init: function () {
         var signUpForm = new Node('<form>').prop({
-            action: 'signIn/submitNew',
+            action: SP.resolvedPath('signIn/submitNew'),
             method: 'post'
         }).addClass('form-horizontal');
         var emailDiv = new Node('<div>').addClass('control-group');
@@ -23,7 +24,7 @@ module.exports = {
             type: 'password',
             placeholder: '请输入密码',
             name: 'password'
-        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码中含有禁止字符');
+        }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码不能含有字符”&“');
         var passwordLabel = new Node('<label>').addClass('control-label').attr('for', password).html('密码：');
         var captDiv = new Node('<div>').prop({
             hidden: 'hidden'
@@ -37,7 +38,7 @@ module.exports = {
         var captLabel = new Node('<label>').addClass('control-label').attr('for', captValue).html('输入验证码：');
         var captImageDiv = new Node('<div>').prop({hidden: 'hidden'}).addClass('control-group');
         var captImage = new Node('<img>').prop({
-            src: 'signUp/captchaImage'
+            src: SP.resolvedPath('signUp/captchaImage')
         }).addClass('captchaImage');
         var captImageLabel = new Node('<label>').addClass('control-label').attr('for', captImage).html('验证码：');
         var refreshCaptchaButton = new Node('<input>').prop({
@@ -74,7 +75,7 @@ module.exports = {
         }).register('email-exist', function (value, attr, defer, field) {
             var self = this;
             self.msg('error', '您输入的邮箱并不存在');
-            IO.post('signIn/checkExist?_content=json&email=' + value, 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signIn/checkExist?_content=json&email=' + value), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -85,7 +86,7 @@ module.exports = {
         }).register('capt-check', function (value, attr, defer, field) {
             var self = this;
             self.msg('error', '您输入的验证码有误，请重新输入');
-            IO.post('signUp/captCheck?_content=json&captValue=' + value, 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signUp/captCheck?_content=json&captValue=' + value), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -95,7 +96,7 @@ module.exports = {
             return defer.promise;
         }).register('signIn-test-hidden', function (value, attr, defer, field) {
             var self = this;
-            IO.post('signIn/signInTest?_content=json&email=' + emailInput.val() + '&password=' + password.val(), 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signIn/signInTest?_content=json&email=' + emailInput.val() + '&password=' + password.val()), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -110,7 +111,7 @@ module.exports = {
         }).register('signIn-test', function (value, attr, defer, field) {
             var self = this;
             self.msg('error', '您输入的邮箱和密码不匹配');
-            IO.post('signIn/signInTest?_content=json&email=' + emailInput.val() + '&password=' + password.val(), 'json').then(function (data) {
+            IO.post(SP.resolvedIOPath('signIn/signInTest?_content=json&email=' + emailInput.val() + '&password=' + password.val()), 'json').then(function (data) {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
@@ -122,7 +123,7 @@ module.exports = {
         });
         auth.render();
         refreshCaptchaButton.on('click', function (e) {
-            captImage.prop('src', 'signUp/captchaImage?t=' + (new Date()).valueOf());
+            captImage.prop('src', SP.resolvedPath('signUp/captchaImage?t=' + (new Date()).valueOf()));
         });
     }
 }

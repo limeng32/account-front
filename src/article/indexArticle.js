@@ -4,6 +4,7 @@ var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var Slide = require('kg/slide/2.0.2/');
 var Cutter = require('kg/cutter/2.0.0/');
+var SP = require('../smartPath/smartPath');
 module.exports = {
     init: function () {
         var mainDiv = new Node('<div>').prop({id: 'example'});
@@ -90,26 +91,32 @@ module.exports = {
             C.stop();
         }).on('mouseout', function (e) {
             C.play();
+        }).on('click', function (e) {
+            alert('尊敬的用户您好，本站关于项目的模块正在开发中，目前这里只显示静态图片，请您耐心等待^^');
         });
         new Cutter(cutterDivs[1], {
             animout_easing: 'easeOut',
-            in_speed: 0.3
+            in_speed: 0.5
         });
         new Cutter(cutterDivs[2], {
             animout_easing: 'easeOut',
-            in_speed: 0.3
+            in_speed: 0.5
         });
         new Cutter(cutterDivs[3], {
             animout_easing: 'easeOut',
-            in_speed: 0.3
+            in_speed: 0.5
         });
         new Cutter(cutterDivs[4], {
             animout_easing: 'easeOut',
-            in_speed: 0.3
+            in_speed: 0.5
         });
         new Cutter(cutterDivs[5], {
             animout_easing: 'easeOut',
-            in_speed: 0.3
+            in_speed: 0.5
+        });
+        new Cutter(cutterDivs[6], {
+            animout_easing: 'easeOut',
+            in_speed: 0.5
         });
     }
 }

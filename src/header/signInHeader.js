@@ -1,5 +1,6 @@
 var $ = require('node').all;
 var Node = require('node');
+var SP = require('../smartPath/smartPath');
 module.exports = {
     init: function () {
         var headerMain = new Node('<div>').addClass('headerMain');
@@ -16,10 +17,10 @@ module.exports = {
         }).addClass('ks-button ks-button-primary ks-button-shown signButton');
         headerTail.append(signUpButton).append(indexButton);
         indexButton.on('click', function (e) {
-            window.location.href = './';
+            window.location.assign(SP.resolvedPath('.'));
         });
         signUpButton.on('click', function (e) {
-            window.location.href = './signUp';
+            window.location.assign(SP.resolvedPath('signUp'));
         });
     }
 }

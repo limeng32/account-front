@@ -94,6 +94,10 @@ module.exports = {
         }).on('click', function (e) {
             alert('尊敬的用户您好，本站关于项目的模块正在开发中，目前这里只显示静态图片，请您耐心等待^^');
         });
+        new Cutter(cutterDivs[0], {
+            animout_easing: 'easeOut',
+            in_speed: 0.5
+        });
         new Cutter(cutterDivs[1], {
             animout_easing: 'easeOut',
             in_speed: 0.5

@@ -6,7 +6,7 @@ module.exports = {
         var headerMain = new Node('<div>').addClass('headerMain');
         var headerTail = new Node('<div>').addClass('headerTail');
         $('header').append(headerMain).append(headerTail);
-        headerMain.html('请登录');
+        headerMain.html('请登录1');
         var indexButton = new Node('<input>').prop({
             type: 'submit',
             value: '首页'

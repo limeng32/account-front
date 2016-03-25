@@ -26,7 +26,7 @@ module.exports = {
             name: 'password'
         }).attr('iRequired', '密码').attr('min-len', '6').attr('max-len', '10').attr('pattern', '^(?!.*?&).*$').attr('pattern-msg', '密码不能含有字符”&“');
         var passwordLabel = new Node('<label>').addClass('control-label').attr('for', password).html('密码：');
-        var captDiv = new Node('<div>').prop({
+        var captDiv = new Node('<div>').attr({
             hidden: 'hidden'
         }).addClass('control-group');
         var captValue = new Node('<input>').prop({
@@ -36,7 +36,7 @@ module.exports = {
             placeholder: '请输入下方的验证码'
         }).attr('iRequired', '验证码').attr('capt-check', '').attr('signIn-test', '');
         var captLabel = new Node('<label>').addClass('control-label').attr('for', captValue).html('输入验证码：');
-        var captImageDiv = new Node('<div>').prop({hidden: 'hidden'}).addClass('control-group');
+        var captImageDiv = new Node('<div>').attr({hidden: 'hidden'}).addClass('control-group');
         var captImage = new Node('<img>').prop({
             src: SP.resolvedPath('signUp/captchaImage')
         }).addClass('captchaImage');
@@ -51,7 +51,7 @@ module.exports = {
             value: '提交'
         }).addClass('ks-button ks-button-primary ks-button-shown');
         var hiddenRuleInput = new Node('<input>').prop({
-            type: 'input',
+            type: 'hidden',
             hidden: 'hidden'
         }).attr('signIn-test-hidden', '');
         signUpForm.append(emailDiv.append(emailLabel).append(emailInput)).append(passwordDiv.append(passwordLabel).append(password));
@@ -100,8 +100,8 @@ module.exports = {
                 if (data[0]) {
                     defer.resolve(self);
                 } else {
-                    captDiv.prop({hidden: ''});
-                    captImageDiv.prop({hidden: ''});
+                    captDiv.removeAttr('hidden');
+                    captImageDiv.removeAttr('hidden');
                     captValue.prop({disabled: ''});
                     hiddenRuleInput.prop({disabled: 'disabled'});
                     defer.reject(self);

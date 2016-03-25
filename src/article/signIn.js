@@ -58,9 +58,9 @@ module.exports = {
         signUpForm.append(captDiv.append(captLabel).append(captValue)).append(captImageDiv.append(captImageLabel).append(captImage).append(refreshCaptchaButton));
         signUpForm.append(submitDiv.append(signUpButton)).append(hiddenRuleInput);
         $('article').append(signUpForm);
-        var auth = new Auth(signUpForm);
-        auth.plug(new AuthMsgs());
-        auth.register('min-len', function (value, attr, defer, field) {
+        var formAuth = new Auth(signUpForm);
+        formAuth.plug(new AuthMsgs());
+        formAuth.register('min-len', function (value, attr, defer, field) {
             var min = Number(attr);
             this.msg('error', '请您输入至少' + min + '个字符');
             return value.length >= Number(attr);
@@ -121,7 +121,7 @@ module.exports = {
             });
             return defer.promise;
         });
-        auth.render();
+        formAuth.render();
         refreshCaptchaButton.on('click', function (e) {
             captImage.prop('src', SP.resolvedPath('signUp/captchaImage?t=' + (new Date()).valueOf()));
         });

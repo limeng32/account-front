@@ -7,7 +7,7 @@ module.exports = {
         var headerMain = new Node('<div>').addClass('headerMain');
         var headerTail = new Node('<div>').addClass('headerTail');
         $('header').append(headerMain).append(headerTail);
-        if (auth == null || auth < 5) {
+        if (token == '') {
             headerMain.html('您好，欢迎来到海市蜃楼');
             var signUpButton = new Node('<input>').prop({
                 type: 'submit',
@@ -17,12 +17,19 @@ module.exports = {
                 type: 'submit',
                 value: '登录'
             }).addClass('ks-button ks-button-shown signButton');
-            headerTail.append(signUpButton).append(signInButton);
+            var homeButton = new Node('<input>').prop({
+                type: 'submit',
+                value: '进来看看'
+            }).addClass('ks-button ks-button-info ks-button-shown signButton');
+            headerTail.append(signUpButton).append(signInButton).append(homeButton);
             signUpButton.on('click', function (e) {
                 window.location.assign(SP.resolvedPath('signUp'));
             });
             signInButton.on('click', function (e) {
                 window.location.assign(SP.resolvedPath('signIn'));
+            });
+            homeButton.on('click', function (e) {
+                window.location.assign(SP.resolvedPath('home'));
             });
         } else {
             headerMain.html('您已经登录成功。您是我们的前100名用户之一，非常非常感谢您参与本站的运行测试。');

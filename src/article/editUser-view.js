@@ -1,6 +1,6 @@
 KISSY.add(function(S,require,exports,module){
 /*compiled by xtemplate#3.3.3*/
-var ret = module.exports = function articleView(undefined){
+var ret = module.exports = function editUserView(undefined){
 var t;
 var t0;
 var t1;
@@ -40,14 +40,7 @@ var macroCommand = nativeCommands["macro"];
 var debuggerCommand = nativeCommands["debugger"];
 
 
-buffer.data += '<h1>';
-var id0 = ((t=(affix.title)) !== undefined ? t:((t = data.title) !== undefined ? t :scope.resolveLooseUp(["title"])));
-buffer = buffer.writeEscaped(id0);
-buffer.data += '</h1>\r\n<p>';
-pos.line = 2;
-var id1 = ((t=(affix.content)) !== undefined ? t:((t = data.content) !== undefined ? t :scope.resolveLooseUp(["content"])));
-buffer = buffer.writeEscaped(id1);
-buffer.data += '</p>';
+buffer.data += '<h2>uploader</h2>\n\n<div class="uploader-wrapper">\n    <div class="grid">\n        <input type="file" class="g-u" id="J_UploaderBtn" value="上传" name="Filedata" accept="image/*">\n        <input type="hidden" id="J_Urls" name="urls"/>\n\n        <div class="g-u">asd<span id="J_UploadCount">3</span>qwe</div>\n    </div>\n    <ul id="J_UploaderQueue" class="grid"></ul>\n</div>\n<div class="J_CropArea" style="width:500px;height:500px;"></div>';
 return buffer;
 };
 ret.TPL_NAME = module.id || module.name;

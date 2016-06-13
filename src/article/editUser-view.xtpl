@@ -1,0 +1,12 @@
+<h2>uploader</h2>
+
+<div class="uploader-wrapper">
+    <div class="grid">
+        <input type="file" class="g-u" id="J_UploaderBtn" value="上传" name="Filedata" accept="image/*">
+        <input type="hidden" id="J_Urls" name="urls"/>
+
+        <div class="g-u">asd<span id="J_UploadCount">3</span>qwe</div>
+    </div>
+    <ul id="J_UploaderQueue" class="grid"></ul>
+</div>
+<div class="J_CropArea" style="width:500px;height:500px;"></div>

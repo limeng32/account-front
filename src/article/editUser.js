@@ -13,10 +13,10 @@ var IMC = require('gallery/imgcrop/2.2/');
 var UrlsInput = require('kg/uploader/2.0.3/plugins/urlsInput/urlsInput');
 var ProBars = require('kg/uploader/2.0.3/plugins/proBars/proBars');
 var Filedrop = require('kg/uploader/2.0.3/plugins/filedrop/filedrop');
-//var ImgCroper = require('kg/uploader/2.0.3/plugins/imgcrop/imgcrop');
-var ImgCroper = require('../uploaderPluginImgcrop/index');
+var ImgCroper = require('gallery/uploader/kissyuploader/5.0.0/plugins/imgcrop/imgcrop');
 //var Preview = require('kg/uploader/2.0.3/plugins/preview/preview');
 //var TagConfig = require('kg/uploader/2.0.3/plugins/tagConfig/tagConfig');
+var AliUploader = require('gallery/uploader/kissyuploader/5.0.0/index');
 module.exports = {
     init: function () {
 
@@ -31,33 +31,33 @@ module.exports = {
         var cropContainer = new Node('<div>').prop({
             id: 'J_CropBox'
         });
-        $('article').append(cropContainer);
-        var imgcrop = new IMC({
-            areaEl: cropContainer, //图片的容器
-            areaWidth: 500, //不配置默认取容器宽度
-            areaHeight: 500, //不配置默认取容器高度
-            initialXY: [10, 10], //初始坐标
-            initWidth: 200, //初始宽度
-            initHeight: 200, //初始高度
-            minHeight: 100, //最小高度
-            minWidth: 100, //最小宽度
-            //previewEl: "#J_PrevBox", //预览容器，不需要的话可以不配置
-            touchable: true, //支持touch、pinch
-            ratio: true, //固定比例缩放
-            resizable: true,//可以缩放
-            url: 'http://img01.taobaocdn.com/imgextra/i1/14888019145001501/T1_iIPXl8dXXXXXXXX_!!855984888-0-pix.jpg'
-        });
+        //$('article').append(cropContainer);
+        //var imgcrop = new IMC({
+        //    areaEl: cropContainer, //图片的容器
+        //    areaWidth: 500, //不配置默认取容器宽度
+        //    areaHeight: 500, //不配置默认取容器高度
+        //    initialXY: [10, 10], //初始坐标
+        //    initWidth: 200, //初始宽度
+        //    initHeight: 200, //初始高度
+        //    minHeight: 100, //最小高度
+        //    minWidth: 100, //最小宽度
+        //    //previewEl: "#J_PrevBox", //预览容器，不需要的话可以不配置
+        //    touchable: true, //支持touch、pinch
+        //    ratio: true, //固定比例缩放
+        //    resizable: true,//可以缩放
+        //    url: 'http://img01.taobaocdn.com/imgextra/i1/14888019145001501/T1_iIPXl8dXXXXXXXX_!!855984888-0-pix.jpg'
+        //});
         //imgcrop.render();
-        imgcrop.on('enddrag', function () {
-            console.log(imgcrop.getCropCoords());
-            console.log(imgcrop.getOriginalSize());
-        });
+        //imgcrop.on('enddrag', function () {
+        //    console.log(imgcrop.getCropCoords());
+        //    console.log(imgcrop.getOriginalSize());
+        //});
 
-        KISSY.use('kg/uploader/2.0.3/index,kg/uploader/2.0.3/themes/imageUploader/index,kg/uploader/6.2.7/themes/imageUploader/style.css', function (S, AliUploader, ImageUploader) {
+        KISSY.use('kg/uploader/2.0.3/themes/imageUploader/index,kg/uploader/6.2.7/themes/imageUploader/style.css', function (S, ImageUploader) {
             var uploader = new AliUploader('#J_UploaderBtn', {
                 action: SP.resolvedIOPath('uploadPortrait?_content=json'),
                 multiple: false,
-                type: ['auto'],
+                type: 'ajax',
                 name: 'Filedata'
                 //filter: function (data) {
                 //    debugger;

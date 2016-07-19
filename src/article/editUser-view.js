@@ -40,7 +40,11 @@ var macroCommand = nativeCommands["macro"];
 var debuggerCommand = nativeCommands["debugger"];
 
 
-buffer.data += '<h2>uploader</h2>\n\n<div class="uploader-wrapper">\n    <div class="grid">\n        <input type="file" class="g-u" id="J_UploaderBtn" value="上传" name="Filedata" accept="image/*">\n        <input type="hidden" id="J_Urls" name="urls"/>\n\n        <div class="g-u">asd<span id="J_UploadCount">3</span>qwe</div>\n    </div>\n    <ul id="J_UploaderQueue" class="grid"></ul>\n</div>\n<div class="J_CropArea" style="width:500px;height:500px;"></div>';
+buffer.data += '<img src="';
+pos.line = 1;
+var id0 = ((t=(affix.portrait)) !== undefined ? t:((t = data.portrait) !== undefined ? t :scope.resolveLooseUp(["portrait"])));
+buffer = buffer.writeEscaped(id0);
+buffer.data += '" class="portrait">\n\n<div class="uploader-wrapper">\n    <div class="grid">\n        <input type="file" class="g-u" id="J_UploaderBtn" value="上传" name="Filedata" accept="image/*">\n        <input type="hidden" id="J_Urls" name="urls"/>\n\n        <div class="g-u">\n            <input type="button" value="确定"\n                   class="ks-button ks-button-success ks-button-shown signButton submitPortrait">\n        </div>\n        <ul id="J_UploaderQueue"></ul>\n    </div>\n</div>';
 return buffer;
 };
 ret.TPL_NAME = module.id || module.name;

@@ -37,7 +37,7 @@ module.exports = {
             var cropContainer = new Node('<div>').prop({
                 id: 'J_CropBox'
             });
-            KISSY.use('kg/uploader/2.0.3/themes/cropUploader/index,kg/uploader/2.0.3/themes/cropUploader/style.css', function (S, ImageUploader) {
+            KISSY.use('kg/uploader/2.0.3/themes/cropUploader/index,kg/uploader/2.0.3/themes/imageUploader/style.css,kg/uploader/2.0.3/themes/cropUploader/style.css', function (S, ImageUploader) {
                 var uploader = new AliUploader('#J_UploaderBtn', {
                     action: SP.resolvedIOPath('uploadPortrait?_content=json'),
                     multiple: false,

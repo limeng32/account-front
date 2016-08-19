@@ -1,6 +1,6 @@
 var $ = require('node').all;
 var Node = require('node');
-var SP = require('../smartPath/smartPath');
+var SP = require('core-front/smartPath/smartPath');
 module.exports = {
     init: function () {
         var headerMain = new Node('<div>').addClass('headerMain');

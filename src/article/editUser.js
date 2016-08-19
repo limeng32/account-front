@@ -4,14 +4,14 @@ var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var IO = require('io');
 var Auth = require('kg/auth/2.0.6/');
-var SP = require('../smartPath/smartPath');
+var SP = require('core-front/smartPath/smartPath');
 var UrlsInput = require('kg/uploader/2.0.3/plugins/urlsInput/urlsInput');
 var ProBars = require('kg/uploader/2.0.3/plugins/proBars/proBars');
 var Filedrop = require('kg/uploader/2.0.3/plugins/filedrop/filedrop');
 var ImgCrop = require('kg/uploader/2.0.3/plugins/imgcrop/imgcrop');
 var AliUploader = require('gallery/uploader/kissyuploader/5.0.0/index');
-var AI = require('../authIdentify/index');
-var JSONX = require('../jsonx/jsonx');
+var AI = require('core-front/authIdentify/index');
+var JSONX = require('core-front/jsonx/jsonx');
 var AD = require('kg/agiledialog/1.0.2/index');
 module.exports = {
     init: function () {

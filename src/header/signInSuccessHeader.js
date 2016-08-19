@@ -1,5 +1,5 @@
 var $ = require('node').all;
-var SP = require('../smartPath/smartPath');
+var SP = require('core-front/smartPath/smartPath');
 module.exports = {
     init: function () {
         if (auth == null || auth < 5) {

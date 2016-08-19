@@ -4,9 +4,9 @@ var XTemplate = require('kg/xtemplate/3.3.3/runtime');
 var Node = require('node');
 var Slide = require('kg/slide/2.0.2/');
 var Cutter = require('kg/cutter/2.0.0/');
-var SP = require('../smartPath/smartPath');
+var SP = require('core-front/smartPath/smartPath');
 var IO = require('io');
-var JSONX = require('../jsonx/jsonx');
+var JSONX = require('core-front/jsonx/jsonx');
 module.exports = {
     init: function () {
         var mainDiv = new Node('<div>').prop({id: 'example'});

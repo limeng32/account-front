@@ -5,7 +5,7 @@ var Node = require('node');
 var IO = require('io');
 var Auth = require('kg/auth/2.0.6/');
 var AuthMsgs = require('kg/auth/2.0.6/plugin/msgs/');
-var SP = require('../smartPath/smartPath');
+var SP = require('core-front/smartPath/smartPath');
 module.exports = {
     init: function () {
         KISSY.use('kg/auth/2.0.6/plugin/msgs/style.css', function (S) {
